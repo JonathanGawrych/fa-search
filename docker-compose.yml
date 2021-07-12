@@ -13,6 +13,8 @@ services:
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
+            DB_HOST: mysql
+            DB_PORT: 3306
         volumes:
             - '.:/var/www/html'
         networks:
