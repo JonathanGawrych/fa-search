@@ -1,0 +1,63 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class {{ class }} extends Migration
+{
+    public function up(): void
+    {
+        // If this is a pivot (many-to-many) table, name it as the singular name
+        // in alphabetical order (i.e. group_user)
+        Schema::create('{{ table }}', function (Blueprint $table) {
+            // Always use id, as it makes everything easier.
+            $table->id();
+
+            // Columns are `snake_case`
+            // Never fully qualify primary key (i.e. user_id on users)
+            // Never abbreviate (i.e. qty instead of quantity)
+            // Never composite (i.e. name is `first last` rather than first_name, last_name)
+            // Never magic value (i.e. REDACTED, 0 instead of null/decomposition)
+            // Never use enum, use string instead.
+            // Avoid default. They can mask missing data during insertion.
+            $table->string('name');
+
+            // For booleans, add `protected $casts = ['is_admin' => 'boolean'];` to the model
+            $table->boolean('is_admin');
+
+            // If something will be searched add an index
+            // If it's unique, add a unique index
+            // For more complex indexing, see app/Database/stubs/migration.update.stub
+            $table->string('external_id')->index();
+            $table->string('external_id')->unique();
+
+            // If something deals with money, use decimal, otherwise use float
+            $table->decimal('price');
+            $table->float('points');
+
+            // For time use `dateTime` over `timestamp` (which have funky mysql behavior and Y2K38 problem)
+            $table->dateTime('posted_at');
+
+            // If you want a foreign key, use this:
+            $table->belongsTo(User::class);
+            // In rare cases, you can specify if you want the column name to be different than `table_id`
+            $table->belongsTo(User::class, 'created_by');
+            // In very rare cases, you may want to point to an other column than the primary key
+            $table->belongsTo(User::class, 'user_email', 'email');
+            // And you can chain additional properties on the column
+            $table->belongsTo(User::class)->nullable()->unique();
+
+            // If you want created/updated_at timestamps (if you don't do this, add `$timestamps = false` to the model)
+            $table->timestamps();
+
+            // If we are using the SoftDeletes trait, use this:
+            $table->softDeletes();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::drop('{{ table }}');
+    }
+}

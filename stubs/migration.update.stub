@@ -1,0 +1,74 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class DummyClass extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('{{ table }}', function (Blueprint $table) {
+            // To add a column, just specify it like when creating a table
+            // See app/Database/stubs/migration.create.stub for a lot of examples and advice
+            // Preferably use `->after()` to place it in the most logical place in the schema
+            $table->string('bar')->nullable()->after('foo');
+
+            // Need to rename a column?
+            $table->renameColumn('old_name', 'new_name');
+            // Need to drop a column?
+            $table->dropColumn('column_name');
+
+            // When you change a column, add the ->change() method
+            // For example, if you want to change a column's NOT NULL or its default
+            $table->bigInteger('count')->nullable(false)->change();
+            $table->boolean('follow_redirects')->default(false)->change();
+            // You can also change the type. Make sure to not accidentally do this when changing default/null
+            $table->unsignedBigInteger('used_to_be_signed_int')->change();
+
+            // To add an index or unique index, use brackets notation.
+            // Don't need to add a non-unique index to a column that you
+            // are already adding a foreign key (already indexed by fk)
+            $table->index(['external_id']);
+            $table->unique(['external_id']);
+
+            // In multi-column indexes, put the most selective column first
+            // That way, mysql can quickly eliminate the most options
+            // i.e. In a table that has a user_id and a type (type being 1 of 4 values),
+            // Mysql will elimate down to the user_id, then look at up to 4 options for the type.
+            $table->unique(['user_id', 'type']);
+
+            // Multi-column indexes do not help in a SELECT that doesn't specify the prior columns.
+            // i.e. If you have this index:
+            $table->index(['name', 'email']);
+            // `SELECT * FROM {{ table }} WHERE name = ? AND email = ?` will be fast
+            // `SELECT * FROM {{ table }} WHERE name = ?` will be fast
+            // `SELECT * FROM {{ table }} WHERE email = ?` will be slow
+            // To improve the last case, also add an index for email.
+            // But only do this if you are actually going to access the table only by the latter column
+            // If not, then it only increases the size and makes insertions/updates slower
+            $table->index(['email']);
+
+            // Need to add a foreign key?
+            // This will also fix the column type if it's incorrect and add the foreign key:
+            $table->belongsTo(User::class)->change();
+        });
+    }
+
+    public function down(): void
+    {
+        // We always want to be able to undo the changes above. You should be able to run with no errors:
+        // php artisan migrate && php artisan migrate:rollback && php artisan migrate
+        Schema::table('{{ table }}', function (Blueprint $table) {
+            // To drop a foreign key (sorry no magic dropBelongsTo)
+            $table->dropForeign(['user_id']);
+        });
+
+        // Note that in a `::table` block, column changes always happen before foreign key changes
+        // So if you need to change the type of a foreign key, you'll need two seperate table blocks
+        Schema::table('{{ table }}', function (Blueprint $table) {
+            // Change the type back
+            $table->unsignedBigInteger('user_id')->change();
+        });
+    }
+}
