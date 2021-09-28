@@ -12,7 +12,7 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
-    && apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 \
+    && apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 wget \
     && mkdir -p ~/.gnupg \
     && chmod 600 ~/.gnupg \
     && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
@@ -20,7 +20,7 @@ RUN apt-get update \
     && apt-key adv --homedir ~/.gnupg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C300EE8C \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu hirsute main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
     && apt-get update \
-    && apt-get install -y php8.0-cli php8.0-dev php-xdebug \
+    && apt-get install -y php8.0-cli php8.0-dev \
        php8.0-pgsql php8.0-sqlite3 php8.0-gd \
        php8.0-curl php8.0-memcached \
        php8.0-imap php8.0-mysql php8.0-mbstring \
@@ -39,7 +39,15 @@ RUN apt-get update \
     && apt-get install -y postgresql-client \
     && apt-get -y autoremove \
     && apt-get clean \
+    && wget http://pear.php.net/go-pear.phar \
+    && php go-pear.phar \
+    && pecl channel-update pecl.php.net \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install xdebug and remove stupid "could not connect to client" popping up all the time
+RUN pecl install --nobuild xdebug
+RUN sed -i '/.*xdebug_log_ex(XLOG_CHAN_DEBUG, XLOG_ERR, "NOCON".*/d' $(pecl config-get temp_dir)/xdebug/src/debugger/com.c
+RUN cd $(pecl config-get temp_dir)/xdebug && phpize && ./configure && make && make install
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.0
 
