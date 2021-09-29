@@ -11,8 +11,10 @@
 |
 */
 
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernalContract;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Foundation\Exceptions\Handler;
 
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
@@ -35,11 +37,7 @@ $app->singleton(
 );
 
 $app->singleton(ConsoleKernalContract::class, ConsoleKernel::class);
-
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
+$app->singleton(ExceptionHandlerContract::class, Handler::class);
 
 /*
 |--------------------------------------------------------------------------
