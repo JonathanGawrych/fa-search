@@ -1,3 +1,6 @@
+/coverage
+
+# Laravel's default ignores
 /node_modules
 /public/hot
 /public/storage
