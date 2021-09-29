@@ -1,9 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "jgawrych/fa-search",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "description": "A new search engine to replace furaffinity's search",
+    "keywords": ["furaffinity", "search", "furry", "fa"],
+    "license": "Ms-PL",
     "require": {
         "php": "^7.3|^8.0",
         "doctrine/dbal": "^3.1",
