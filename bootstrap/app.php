@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Contracts\Console\Kernel as ConsoleKernalContract;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -31,10 +34,7 @@ $app->singleton(
     App\Http\Kernel::class
 );
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
+$app->singleton(ConsoleKernalContract::class, ConsoleKernel::class);
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
