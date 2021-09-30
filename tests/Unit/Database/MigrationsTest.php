@@ -20,7 +20,7 @@ class MigrationsTest extends TestCase
      * This just walks the migrations, to ensure each step is
      * fully reversable.
      */
-    public function testMigrationUpDownIdempotent()
+    public function testMigrationUpDownIdempotent(): void
     {
         // Start with a fresh database
         $this->artisan('db:wipe');

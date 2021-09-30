@@ -9,7 +9,7 @@ class LangTest extends TestCase
     /**
      * A simple test mainly for coverage
      */
-    public function testLangWorks()
+    public function testLangWorks(): void
     {
         $requiredMsg = __('validation.required', ['attribute' => 'foo']);
         $this->assertSame('The foo field is required.', $requiredMsg);

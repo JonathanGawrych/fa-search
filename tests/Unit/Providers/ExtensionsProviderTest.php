@@ -22,7 +22,13 @@ class ExtensionsProviderTest extends TestCase
      * Blueprint::belongsTo extension tests
      *************************************************/
 
-    private function mockDoctrine($type = 'bigint', $unsigned = true, $length = 191, $precision = 10, $scale = 0) {
+    private function mockDoctrine(
+        string $type = 'bigint',
+        bool $unsigned = true,
+        int $length = 191,
+        int $precision = 10,
+        int $scale = 0
+    ): void {
         /** @var MockInterface $mockConnection **/
         $mockConnection = Mockery::mock(Connection::class);
         $mockConnection->shouldReceive('getDoctrineColumn->getType->getName')->andReturn($type);
@@ -33,7 +39,7 @@ class ExtensionsProviderTest extends TestCase
         DB::shouldReceive('connection')->andReturn($mockConnection);
     }
 
-    public function testBlueprintBelongsToUnsignedBigInteger()
+    public function testBlueprintBelongsToUnsignedBigInteger(): void
     {
         $this->mockDoctrine();
 
@@ -57,7 +63,7 @@ class ExtensionsProviderTest extends TestCase
         );
     }
 
-    public function testBlueprintBelongsToSignedInteger()
+    public function testBlueprintBelongsToSignedInteger(): void
     {
         $this->mockDoctrine('integer', /*$unsigned*/ false);
 
@@ -81,7 +87,7 @@ class ExtensionsProviderTest extends TestCase
         );
     }
 
-    public function testBlueprintBelongsToSmallInteger()
+    public function testBlueprintBelongsToSmallInteger(): void
     {
         $this->mockDoctrine('smallint', /*$unsigned*/ false);
 
@@ -105,7 +111,7 @@ class ExtensionsProviderTest extends TestCase
         );
     }
 
-    public function testBlueprintBelongsToString()
+    public function testBlueprintBelongsToString(): void
     {
         $this->mockDoctrine('string', /*$unsigned*/ false, /*$length*/ 100);
 
@@ -128,7 +134,7 @@ class ExtensionsProviderTest extends TestCase
         );
     }
 
-    public function testBlueprintBelongsToOverrideForeignKey()
+    public function testBlueprintBelongsToOverrideForeignKey(): void
     {
         $this->mockDoctrine();
 
@@ -151,7 +157,7 @@ class ExtensionsProviderTest extends TestCase
         );
     }
 
-    public function testBlueprintBelongsToOverrideOwnerKey()
+    public function testBlueprintBelongsToOverrideOwnerKey(): void
     {
         $this->mockDoctrine();
 
