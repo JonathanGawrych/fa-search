@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Web;
 
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class ExampleWebTest extends TestCase
 {
     /**
      * A basic test example.
@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/api/whats-my-ip');
+        $response = $this->get('/');
 
         $response->assertStatus(200);
     }
