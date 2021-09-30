@@ -12,10 +12,27 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
+    <coverage processUncoveredFiles="true" pathCoverage="true">
         <include>
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./</directory>
         </include>
+        <exclude>
+            <!-- Obviously we don't want coverage of vendor -->
+            <directory>./vendor</directory>
+            <!-- Storage is just a skeleton of temp ignored built files -->
+            <directory>./storage</directory>
+            <!-- Blades templates can't be processed -->
+            <directory suffix=".blade.php">./</directory>
+
+            <!-- While nice, processUncoveredFiles will require_once all files
+                 that weren't touched during the tests. This causes problems for
+                 any php entry point script that actually runs code -->
+            <file>./public/index.php</file>
+            <file>./server.php</file>
+        </exclude>
+        <report>
+            <html outputDirectory="coverage" />
+        </report>
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
