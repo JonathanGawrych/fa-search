@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, RefreshDatabase;
 
-    private bool $seed = true;
+    protected bool $seed = true;
 
     public function assertEqualsIgnoringCaseAndWhitespace(string $expected, string $actual, string $message = ''): void
     {
