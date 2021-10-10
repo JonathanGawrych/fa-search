@@ -48,12 +48,12 @@ class ExtensionsProviderTest extends TestCase
 
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `user_id` BIGINT UNSIGNED NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_user_id_foreign`
             FOREIGN KEY (`user_id`)
@@ -72,12 +72,12 @@ class ExtensionsProviderTest extends TestCase
         $bluePrint->belongsTo(User::class);
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `user_id` INT NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_user_id_foreign`
             FOREIGN KEY (`user_id`)
@@ -96,12 +96,12 @@ class ExtensionsProviderTest extends TestCase
         $bluePrint->belongsTo(User::class);
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `user_id` SMALLINT NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_user_id_foreign`
             FOREIGN KEY (`user_id`)
@@ -119,12 +119,12 @@ class ExtensionsProviderTest extends TestCase
         $bluePrint->belongsTo(User::class);
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `user_id` VARCHAR(100) NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_user_id_foreign`
             FOREIGN KEY (`user_id`)
@@ -142,12 +142,12 @@ class ExtensionsProviderTest extends TestCase
         $bluePrint->belongsTo(User::class, 'other_user_id');
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `other_user_id` BIGINT UNSIGNED NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_other_user_id_foreign`
             FOREIGN KEY (`other_user_id`)
@@ -165,12 +165,12 @@ class ExtensionsProviderTest extends TestCase
         $bluePrint->belongsTo(User::class, 'user_lower', 'lower');
         [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD `user_lower` BIGINT UNSIGNED NOT NULL",
             $column
         );
-        $this->assertEqualsIgnoringCaseAndWhitespace(
+        static::assertEqualsIgnoringCaseAndWhitespace(
             "ALTER TABLE `table_name`
             ADD CONSTRAINT `table_name_user_lower_foreign`
             FOREIGN KEY (`user_lower`)

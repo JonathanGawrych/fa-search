@@ -11,10 +11,10 @@ abstract class TestCase extends BaseTestCase
 
     protected bool $seed = true;
 
-    public function assertEqualsIgnoringCaseAndWhitespace(string $expected, string $actual, string $message = ''): void
+    public static function assertEqualsIgnoringCaseAndWhitespace(string $expected, string $actual, string $message = ''): void
     {
         $expectedWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $expected) ?? '');
         $actualWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $actual) ?? '');
-        $this->assertEqualsIgnoringCase($expectedWithoutWhitespace, $actualWithoutWhitespace, $message);
+        static::assertEqualsIgnoringCase($expectedWithoutWhitespace, $actualWithoutWhitespace, $message);
     }
 }

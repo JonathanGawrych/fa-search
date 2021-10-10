@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\ForeignIdColumnDefinition;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,15 +27,19 @@ class ExtensionsProvider extends ServiceProvider
          * @param string|null $ownerKey
          * @return void
          */
-        Blueprint::macro('belongsTo', function (string $Class, ?string $foreignKey = null, ?string $ownerKey = null) {
+        Blueprint::macro('belongsTo', function (
+            string $Class,
+            ?string $foreignKey = null,
+            ?string $ownerKey = null
+        ): ForeignIdColumnDefinition {
             /** @var Blueprint $this **/
 
             // First we need to figure out some stuff about the destination
             /** @var Model $instance */
             $instance = new $Class();
             $tableName = $instance->getTable();
-            $ownerKey = $ownerKey ?: $instance->getKeyName();
-            $foreignKey = $foreignKey ?: $instance->getForeignKey();
+            $ownerKey = $ownerKey ?? $instance->getKeyName();
+            $foreignKey = $foreignKey ?? $instance->getForeignKey();
 
             // Now we need to learn the datatype of the key
             /** @var Connection $connection */

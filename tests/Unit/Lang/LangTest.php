@@ -12,6 +12,6 @@ class LangTest extends TestCase
     public function testLangWorks(): void
     {
         $requiredMsg = __('validation.required', ['attribute' => 'foo']);
-        $this->assertSame('The foo field is required.', $requiredMsg);
+        static::assertSame('The foo field is required.', $requiredMsg);
     }
 }

@@ -13,3 +13,6 @@ parameters:
     stubFiles:
         - stan/ColumnDefinition.stub
         - stan/Fluent.stub
+        - stan/Kernel.stub
+    ignoreErrors:
+        - '#Dynamic call to static method Illuminate\\Database\\Schema\\Blueprint::belongsTo#'

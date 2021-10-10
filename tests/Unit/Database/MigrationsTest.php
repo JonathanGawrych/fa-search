@@ -48,7 +48,7 @@ class MigrationsTest extends TestCase
 
             // Get the schema again and assert they are equal
             $after = $connection->getDoctrineSchemaManager()->createSchema();
-            $this->assertEquals($after, $before);
+            static::assertEquals($after, $before);
 
             // Then run the migration up (so we run the next migration)
             $migrator->run($migrationFile);
