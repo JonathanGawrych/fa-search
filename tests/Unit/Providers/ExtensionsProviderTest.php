@@ -16,6 +16,7 @@ class ExtensionsProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->createApplication();
+        parent::setUp();
     }
 
     /*************************************************
