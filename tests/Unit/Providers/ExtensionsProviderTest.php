@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Unit\Providers;
 
@@ -29,7 +29,8 @@ class ExtensionsProviderTest extends TestCase
 		int $length = 191,
 		int $precision = 10,
 		int $scale = 0
-	): void {
+	): void
+	{
 		/** @var MockInterface $mockConnection **/
 		$mockConnection = Mockery::mock(Connection::class);
 		$mockConnection->shouldReceive('getDoctrineColumn->getType->getName')->andReturn($type);

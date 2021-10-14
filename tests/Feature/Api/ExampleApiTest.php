@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Feature\Api;
 
@@ -11,7 +11,7 @@ class ExampleApiTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function test_example()
+	public function testExample()
 	{
 		$response = $this->get('/api/whats-my-ip');
 

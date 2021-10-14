@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<ruleset
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+	<!-- We only care about php files, not js/css -->
+	<arg name="extensions" value="php" />
+
+	<!-- Needed for phpcs, but really it should be up to the dev -->
+	<arg name="tab-width" value="4" />
+
+	<!-- Print out the name of the failed rule -->
+	<arg value="s" />
+
+	<!-- Print out the progress while it's scanning -->
+	<arg value="p" />
+
+	<!-- Make the output pretty -->
+	<arg name="colors" />
+
+	<!-- Lint everything please -->
+	<file>./</file>
+
+	<!-- Except these. See phpunit.xml's ignores -->
+	<exclude-pattern>vendor/</exclude-pattern>
+	<exclude-pattern>storage/</exclude-pattern>
+	<exclude-pattern>bootstrap/cache/</exclude-pattern>
+	<exclude-pattern>*.blade.php</exclude-pattern>
+
+	<!-- There's a lot of contradictory rules, so we'll have to ignore a lot -->
+	<rule ref="Generic">
+		<!-- We want short (conflicts with DisallowLongArraySyntax) -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+
+		<!-- While we'd like to format doc comments, we want to support single line type hints -->
+		<!-- /** @var Type $foo */ -->
+		<exclude name="Generic.Commenting.DocComment" />
+
+		<!-- While evaluating a function every loop isn't the best, readability is king -->
+		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed" />
+
+		<!-- We want classes opening brace to be on the next line -->
+		<exclude name="Generic.Classes.OpeningBraceSameLine" />
+
+		<!-- We want a newline at the end (conflicts with EndFileNewline) -->
+		<exclude name="Generic.Files.EndFileNoNewline" />
+
+		<!-- Files shouldn't be lowercased, they should be PascalCase -->
+		<exclude name="Generic.Files.LowercasedFilename" />
+
+		<!-- We don't want assignment aligned -->
+		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
+
+		<!-- We do want spaces after casts (conflicts with SpaceAfterCast) -->
+		<exclude name="Generic.Formatting.NoSpaceAfterCast" />
+
+		<!-- We don't care about prefixing abstract classes with Abstract -->
+		<exclude name="Generic.NamingConventions.AbstractClassNamePrefix" />
+
+		<!-- We don't care about suffixing traits with Trait -->
+		<exclude name="Generic.NamingConventions.TraitNameSuffix" />
+
+		<!-- We don't want camel caps function names -->
+		<exclude name="Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps" />
+
+		<!-- In fact, you do NOT want to close the php tag -->
+		<exclude name="Generic.PHP.ClosingPHPTag" />
+
+		<!-- We want lowercase true/false/null (conflicts with LowerCaseConstant) -->
+		<exclude name="Generic.PHP.UpperCaseConstant" />
+
+		<!-- If strings have to be broken up over multiple lines, then allow it-->
+		<exclude name="Generic.Strings.UnnecessaryStringConcat.Found" />
+
+		<!-- Tabs are better than spaces (conflicts with DisallowSpaceIndent) -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+	</rule>
+
+	<!-- We want tabs, not spaces -->
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<!-- Although we prefer this to be exact, it can't handle mutiline sadly -->
+			<property name="exact" value="false" />
+			<property name="tabIndent" value="true" />
+		</properties>
+	</rule>
+
+	<!-- LineLengths are too strict -->
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="160" />
+			<property name="ignoreComments" value="true" />
+			<property name="absoluteLineLimit" value="160" />
+		</properties>
+	</rule>
+
+	<!-- We want no spaces after not's like !$someBool -->
+	<rule ref="Generic.Formatting.SpaceAfterNot">
+		<properties>
+			<property name="spacing" value="0" />
+		</properties>
+	</rule>
+
+	<!-- We want Closures to have same line brace, methods next line -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie">
+		<properties>
+			<property name="checkFunctions" value="false" />
+			<property name="checkClosures" value="true" />
+		</properties>
+	</rule>
+</ruleset>
