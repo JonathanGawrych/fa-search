@@ -13,171 +13,171 @@ use Tests\TestCase;
 
 class ExtensionsProviderTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $this->createApplication();
-        parent::setUp();
-    }
+	protected function setUp(): void
+	{
+		$this->createApplication();
+		parent::setUp();
+	}
 
-    /*************************************************
-     * Blueprint::belongsTo extension tests
-     *************************************************/
+	/*************************************************
+	 * Blueprint::belongsTo extension tests
+	 *************************************************/
 
-    private function mockDoctrine(
-        string $type = 'bigint',
-        bool $unsigned = true,
-        int $length = 191,
-        int $precision = 10,
-        int $scale = 0
-    ): void {
-        /** @var MockInterface $mockConnection **/
-        $mockConnection = Mockery::mock(Connection::class);
-        $mockConnection->shouldReceive('getDoctrineColumn->getType->getName')->andReturn($type);
-        $mockConnection->shouldReceive('getDoctrineColumn->getUnsigned')->andReturn($unsigned);
-        $mockConnection->shouldReceive('getDoctrineColumn->getLength')->andReturn($length);
-        $mockConnection->shouldReceive('getDoctrineColumn->getPrecision')->andReturn($precision);
-        $mockConnection->shouldReceive('getDoctrineColumn->getScale')->andReturn($scale);
-        DB::shouldReceive('connection')->andReturn($mockConnection);
-    }
+	private function mockDoctrine(
+		string $type = 'bigint',
+		bool $unsigned = true,
+		int $length = 191,
+		int $precision = 10,
+		int $scale = 0
+	): void {
+		/** @var MockInterface $mockConnection **/
+		$mockConnection = Mockery::mock(Connection::class);
+		$mockConnection->shouldReceive('getDoctrineColumn->getType->getName')->andReturn($type);
+		$mockConnection->shouldReceive('getDoctrineColumn->getUnsigned')->andReturn($unsigned);
+		$mockConnection->shouldReceive('getDoctrineColumn->getLength')->andReturn($length);
+		$mockConnection->shouldReceive('getDoctrineColumn->getPrecision')->andReturn($precision);
+		$mockConnection->shouldReceive('getDoctrineColumn->getScale')->andReturn($scale);
+		DB::shouldReceive('connection')->andReturn($mockConnection);
+	}
 
-    public function testBlueprintBelongsToUnsignedBigInteger(): void
-    {
-        $this->mockDoctrine();
+	public function testBlueprintBelongsToUnsignedBigInteger(): void
+	{
+		$this->mockDoctrine();
 
-        $bluePrint = new Blueprint('table_name');
-        $bluePrint->belongsTo(User::class);
+		$bluePrint = new Blueprint('table_name');
+		$bluePrint->belongsTo(User::class);
 
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `user_id` BIGINT UNSIGNED NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_user_id_foreign`
-            FOREIGN KEY (`user_id`)
-            REFERENCES `users` (`id`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `user_id` BIGINT UNSIGNED NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_user_id_foreign`
+			FOREIGN KEY (`user_id`)
+			REFERENCES `users` (`id`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 
-    public function testBlueprintBelongsToSignedInteger(): void
-    {
-        $this->mockDoctrine('integer', /*$unsigned*/ false);
+	public function testBlueprintBelongsToSignedInteger(): void
+	{
+		$this->mockDoctrine('integer', /*$unsigned*/ false);
 
-        $bluePrint = new Blueprint('table_name');
+		$bluePrint = new Blueprint('table_name');
 
-        $bluePrint->belongsTo(User::class);
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		$bluePrint->belongsTo(User::class);
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `user_id` INT NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_user_id_foreign`
-            FOREIGN KEY (`user_id`)
-            REFERENCES `users` (`id`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `user_id` INT NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_user_id_foreign`
+			FOREIGN KEY (`user_id`)
+			REFERENCES `users` (`id`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 
-    public function testBlueprintBelongsToSmallInteger(): void
-    {
-        $this->mockDoctrine('smallint', /*$unsigned*/ false);
+	public function testBlueprintBelongsToSmallInteger(): void
+	{
+		$this->mockDoctrine('smallint', /*$unsigned*/ false);
 
-        $bluePrint = new Blueprint('table_name');
+		$bluePrint = new Blueprint('table_name');
 
-        $bluePrint->belongsTo(User::class);
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		$bluePrint->belongsTo(User::class);
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `user_id` SMALLINT NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_user_id_foreign`
-            FOREIGN KEY (`user_id`)
-            REFERENCES `users` (`id`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `user_id` SMALLINT NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_user_id_foreign`
+			FOREIGN KEY (`user_id`)
+			REFERENCES `users` (`id`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 
-    public function testBlueprintBelongsToString(): void
-    {
-        $this->mockDoctrine('string', /*$unsigned*/ false, /*$length*/ 100);
+	public function testBlueprintBelongsToString(): void
+	{
+		$this->mockDoctrine('string', /*$unsigned*/ false, /*$length*/ 100);
 
-        $bluePrint = new Blueprint('table_name');
-        $bluePrint->belongsTo(User::class);
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		$bluePrint = new Blueprint('table_name');
+		$bluePrint->belongsTo(User::class);
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `user_id` VARCHAR(100) NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_user_id_foreign`
-            FOREIGN KEY (`user_id`)
-            REFERENCES `users` (`id`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `user_id` VARCHAR(100) NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_user_id_foreign`
+			FOREIGN KEY (`user_id`)
+			REFERENCES `users` (`id`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 
-    public function testBlueprintBelongsToOverrideForeignKey(): void
-    {
-        $this->mockDoctrine();
+	public function testBlueprintBelongsToOverrideForeignKey(): void
+	{
+		$this->mockDoctrine();
 
-        $bluePrint = new Blueprint('table_name');
-        $bluePrint->belongsTo(User::class, 'other_user_id');
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		$bluePrint = new Blueprint('table_name');
+		$bluePrint->belongsTo(User::class, 'other_user_id');
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `other_user_id` BIGINT UNSIGNED NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_other_user_id_foreign`
-            FOREIGN KEY (`other_user_id`)
-            REFERENCES `users` (`id`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `other_user_id` BIGINT UNSIGNED NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_other_user_id_foreign`
+			FOREIGN KEY (`other_user_id`)
+			REFERENCES `users` (`id`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 
-    public function testBlueprintBelongsToOverrideOwnerKey(): void
-    {
-        $this->mockDoctrine();
+	public function testBlueprintBelongsToOverrideOwnerKey(): void
+	{
+		$this->mockDoctrine();
 
-        $bluePrint = new Blueprint('table_name');
-        $bluePrint->belongsTo(User::class, 'user_lower', 'lower');
-        [$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
+		$bluePrint = new Blueprint('table_name');
+		$bluePrint->belongsTo(User::class, 'user_lower', 'lower');
+		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD `user_lower` BIGINT UNSIGNED NOT NULL",
-            $column
-        );
-        static::assertEqualsIgnoringCaseAndWhitespace(
-            "ALTER TABLE `table_name`
-            ADD CONSTRAINT `table_name_user_lower_foreign`
-            FOREIGN KEY (`user_lower`)
-            REFERENCES `users` (`lower`)
-            ON DELETE CASCADE",
-            $foreign
-        );
-    }
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD `user_lower` BIGINT UNSIGNED NOT NULL",
+			$column
+		);
+		static::assertEqualsIgnoringCaseAndWhitespace(
+			"ALTER TABLE `table_name`
+			ADD CONSTRAINT `table_name_user_lower_foreign`
+			FOREIGN KEY (`user_lower`)
+			REFERENCES `users` (`lower`)
+			ON DELETE CASCADE",
+			$foreign
+		);
+	}
 }

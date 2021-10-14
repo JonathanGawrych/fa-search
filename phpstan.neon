@@ -1,18 +1,18 @@
 includes:
-    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
 parameters:
-    level: max
-    paths:
-        - .
-    excludePaths:
-        # See phpunit.xml's ignores
-        - vendor
-        - storage
-        - *.blade.php
-    stubFiles:
-        - stan/ColumnDefinition.stub
-        - stan/Fluent.stub
-        - stan/Kernel.stub
-    ignoreErrors:
-        - '#Dynamic call to static method Illuminate\\Database\\Schema\\Blueprint::belongsTo#'
+	level: max
+	paths:
+		- .
+	excludePaths:
+		# See phpunit.xml's ignores
+		- vendor
+		- storage
+		- *.blade.php
+	stubFiles:
+		- stan/ColumnDefinition.stub
+		- stan/Fluent.stub
+		- stan/Kernel.stub
+	ignoreErrors:
+		- '#Dynamic call to static method Illuminate\\Database\\Schema\\Blueprint::belongsTo#'

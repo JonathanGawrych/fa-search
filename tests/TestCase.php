@@ -7,14 +7,14 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, RefreshDatabase;
+	use CreatesApplication, RefreshDatabase;
 
-    protected bool $seed = true;
+	protected bool $seed = true;
 
-    public static function assertEqualsIgnoringCaseAndWhitespace(string $expected, string $actual, string $message = ''): void
-    {
-        $expectedWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $expected) ?? '');
-        $actualWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $actual) ?? '');
-        static::assertEqualsIgnoringCase($expectedWithoutWhitespace, $actualWithoutWhitespace, $message);
-    }
+	public static function assertEqualsIgnoringCaseAndWhitespace(string $expected, string $actual, string $message = ''): void
+	{
+		$expectedWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $expected) ?? '');
+		$actualWithoutWhitespace = trim(preg_replace('/\s+/', ' ', $actual) ?? '');
+		static::assertEqualsIgnoringCase($expectedWithoutWhitespace, $actualWithoutWhitespace, $message);
+	}
 }

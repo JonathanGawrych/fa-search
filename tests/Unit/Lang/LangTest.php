@@ -6,12 +6,12 @@ use Tests\TestCase;
 
 class LangTest extends TestCase
 {
-    /**
-     * A simple test mainly for coverage
-     */
-    public function testLangWorks(): void
-    {
-        $requiredMsg = __('validation.required', ['attribute' => 'foo']);
-        static::assertSame('The foo field is required.', $requiredMsg);
-    }
+	/**
+	 * A simple test mainly for coverage
+	 */
+	public function testLangWorks(): void
+	{
+		$requiredMsg = __('validation.required', ['attribute' => 'foo']);
+		static::assertSame('The foo field is required.', $requiredMsg);
+	}
 }

@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
+		 xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+		 bootstrap="vendor/autoload.php"
+		 colors="true"
 >
-    <testsuites>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-    </testsuites>
-    <coverage processUncoveredFiles="true" pathCoverage="true">
-        <include>
-            <directory suffix=".php">./</directory>
-        </include>
-        <exclude>
-            <!-- Obviously we don't want coverage of vendor -->
-            <directory>./vendor</directory>
-            <!-- Storage is just a skeleton of temp ignored built files -->
-            <directory>./storage</directory>
-            <!-- Blades templates can't be processed -->
-            <directory suffix=".blade.php">./</directory>
+	<testsuites>
+		<testsuite name="Unit">
+			<directory suffix="Test.php">./tests/Unit</directory>
+		</testsuite>
+		<testsuite name="Feature">
+			<directory suffix="Test.php">./tests/Feature</directory>
+		</testsuite>
+	</testsuites>
+	<coverage processUncoveredFiles="true" pathCoverage="true">
+		<include>
+			<directory suffix=".php">./</directory>
+		</include>
+		<exclude>
+			<!-- Obviously we don't want coverage of vendor -->
+			<directory>./vendor</directory>
+			<!-- Storage is just a skeleton of temp ignored built files -->
+			<directory>./storage</directory>
+			<!-- Blades templates can't be processed -->
+			<directory suffix=".blade.php">./</directory>
 
-            <!-- While nice, processUncoveredFiles will require_once all files
-                 that weren't touched during the tests. This causes problems for
-                 any php entry point script that actually runs code -->
-            <file>./public/index.php</file>
-            <file>./server.php</file>
-        </exclude>
-        <report>
-            <html outputDirectory="coverage" />
-        </report>
-    </coverage>
-    <php>
-        <server name="APP_ENV" value="testing"/>
-        <server name="BCRYPT_ROUNDS" value="4"/>
-        <server name="CACHE_DRIVER" value="array"/>
-        <server name="DB_CONNECTION" value="sqlite"/>
-        <server name="DB_DATABASE" value=":memory:"/>
-        <server name="MAIL_MAILER" value="array"/>
-        <server name="QUEUE_CONNECTION" value="sync"/>
-        <server name="SESSION_DRIVER" value="array"/>
-        <server name="TELESCOPE_ENABLED" value="false"/>
-    </php>
+			<!-- While nice, processUncoveredFiles will require_once all files
+				 that weren't touched during the tests. This causes problems for
+				 any php entry point script that actually runs code -->
+			<file>./public/index.php</file>
+			<file>./server.php</file>
+		</exclude>
+		<report>
+			<html outputDirectory="coverage" />
+		</report>
+	</coverage>
+	<php>
+		<server name="APP_ENV" value="testing"/>
+		<server name="BCRYPT_ROUNDS" value="4"/>
+		<server name="CACHE_DRIVER" value="array"/>
+		<server name="DB_CONNECTION" value="sqlite"/>
+		<server name="DB_DATABASE" value=":memory:"/>
+		<server name="MAIL_MAILER" value="array"/>
+		<server name="QUEUE_CONNECTION" value="sync"/>
+		<server name="SESSION_DRIVER" value="array"/>
+		<server name="TELESCOPE_ENABLED" value="false"/>
+	</php>
 </phpunit>

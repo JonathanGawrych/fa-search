@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/whats-my-ip', static function (Request $request): ?string {
-    return $request->ip();
+	return $request->ip();
 });

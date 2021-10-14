@@ -15,5 +15,5 @@ use Illuminate\View\View;
 */
 
 Route::get('/', static function (): View {
-    return view('welcome');
+	return view('welcome');
 });

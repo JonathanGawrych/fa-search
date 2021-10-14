@@ -6,19 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 class {{ class }} extends Migration
 {
-    public function up(): void
-    {
-        // This is an empty migration stub.
-        // If you are planning on creating a table, try instead:
-        // sail artisan make:migration --create foo add_foo_table
-        // If you are planning on updating a table, try instead:
-        // sail artisan make:migration --table foo modify_foo_table
-        // They will give you better advice/examples depending on what you want to do
-    }
+	public function up(): void
+	{
+		// This is an empty migration stub.
+		// If you are planning on creating a table, try instead:
+		// sail artisan make:migration --create foo add_foo_table
+		// If you are planning on updating a table, try instead:
+		// sail artisan make:migration --table foo modify_foo_table
+		// They will give you better advice/examples depending on what you want to do
+	}
 
-    public function down(): void
-    {
-        // We always want to be able to undo the changes above. You should be able to run with no errors:
-        // php artisan migrate && php artisan migrate:rollback && php artisan migrate
-    }
+	public function down(): void
+	{
+		// We always want to be able to undo the changes above. You should be able to run with no errors:
+		// php artisan migrate && php artisan migrate:rollback && php artisan migrate
+	}
 }
