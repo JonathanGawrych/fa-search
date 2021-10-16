@@ -256,6 +256,14 @@
 		<exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before" />
 	</rule>
 
+	<rule ref="Zend">
+		<!-- We don't want underscores on private variables -->
+		<exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+
+		<!-- Unfortunately, databases columns are snake instead of camel, so we have to ignore this -->
+		<exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps" />
+	</rule>
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
