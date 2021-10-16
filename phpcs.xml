@@ -27,8 +27,10 @@
 	<exclude-pattern>bootstrap/cache/</exclude-pattern>
 	<exclude-pattern>*.blade.php</exclude-pattern>
 
-	<!-- There's a lot of contradictory rules, so we'll have to ignore a lot -->
+	<!-- Activate rules. Note this has to come before configuring them below -->
 	<rule ref="Generic">
+		<!-- There's a lot of contradictory rules, so we'll have to ignore a lot -->
+
 		<!-- We want short (conflicts with DisallowLongArraySyntax) -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 
@@ -76,6 +78,51 @@
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
 	</rule>
 
+	<!-- Now PEAR's rules -->
+	<rule ref="PEAR">
+		<!-- At first, I tried to fill in all the missing phpdocs, but I found pretty quickly -->
+		<!-- that it was leading to redundent commenting that wasn't helping, so don't require it -->
+		<exclude name="PEAR.Commenting.ClassComment.Missing" />
+		<exclude name="PEAR.Commenting.FileComment" />
+		<exclude name="PEAR.Commenting.FunctionComment.Missing" />
+		<exclude name="PEAR.Commenting.FunctionComment.MissingParamTag" />
+		<exclude name="PEAR.Commenting.FunctionComment.MissingReturn" />
+
+		<!-- We don't care about specifying @category/@package/@author/@license/@link -->
+		<exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingLinkTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingPackageTag" />
+
+		<!-- Parameters should be self commenting -->
+		<exclude name="PEAR.Commenting.FunctionComment.MissingParamComment" />
+
+		<!-- We don't want to align parameter comments -->
+		<exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType" />
+
+		<!-- We prefer using `require` (errors) instead of `include` (warns) -->
+		<exclude name="PEAR.Files.IncludingFile.UseInclude" />
+		<exclude name="PEAR.Files.IncludingFile.UseIncludeOnce" />
+
+		<!-- Bad for closures, we don't want the parentheses to start/end the line or require odd indentation -->
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
+
+		<!-- Bad for multiline params, we don't care if { is on the same line as ) -->
+		<exclude name="PEAR.Functions.FunctionDeclaration.NewlineBeforeOpenBrace" />
+
+		<!-- Privates shouldn't start with an underscore -->
+		<exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+		<exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore" />
+
+		<!-- The same as Generic.Sniffs.WhiteSpace.ScopeIndentSniff, but doesn't indent switch cases -->
+		<exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
+	</rule>
+
+	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
+
 	<!-- We want tabs, not spaces -->
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
@@ -108,4 +155,8 @@
 			<property name="checkClosures" value="true" />
 		</properties>
 	</rule>
+
+	<!-- <rule ref="PSR1"/>
+	<rule ref="PSR2"/>
+	<rule ref="PSR12"/> -->
 </ruleset>

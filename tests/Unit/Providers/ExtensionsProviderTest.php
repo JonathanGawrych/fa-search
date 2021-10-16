@@ -19,10 +19,6 @@ class ExtensionsProviderTest extends TestCase
 		parent::setUp();
 	}
 
-	/*************************************************
-	 * Blueprint::belongsTo extension tests
-	 *************************************************/
-
 	private function mockDoctrine(
 		string $type = 'bigint',
 		bool $unsigned = true,
