@@ -131,6 +131,16 @@
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace" />
 	</rule>
 
+	<rule ref="PSR12">
+		<!-- We prefer `declare(strict_types=1);` to be on the same line as `<?php` -->
+		<exclude name="PSR12.Files.FileHeader.IncorrectOrder" />
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock" />
+		<exclude name="PSR12.Files.OpenTag.NotAlone" />
+
+		<!-- We don't want each trait to have its own use statement -->
+		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport" />
+	</rule>
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
@@ -170,7 +180,4 @@
 	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
 		<exclude-pattern>database/migrations/</exclude-pattern>
 	</rule>
-
-	<!--
-	<rule ref="PSR12"/> -->
 </ruleset>
