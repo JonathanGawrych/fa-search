@@ -123,6 +123,14 @@
 
 	<rule ref="PSR1" />
 
+	<rule ref="PSR2">
+		<!-- We prefer `else if` over `elseif` -->
+		<exclude name="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed" />
+
+		<!-- A copy of this rule is in PEAR that we are ignoring -->
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace" />
+	</rule>
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
@@ -164,6 +172,5 @@
 	</rule>
 
 	<!--
-	<rule ref="PSR2"/>
 	<rule ref="PSR12"/> -->
 </ruleset>

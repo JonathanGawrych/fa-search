@@ -35,7 +35,6 @@ class MigrationsTest extends TestCase
 		// Loop through them. Ignoring coverage on the foreach,
 		// as we aren't testing for no migrations.
 		foreach ($migrationFiles as $migrationFile) { // @codeCoverageIgnore
-
 			// First get the current schema
 			/** @var Connection $connection */
 			$connection = DB::connection();
