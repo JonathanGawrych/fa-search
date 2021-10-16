@@ -28,7 +28,7 @@ class ExtensionsProvider extends ServiceProvider
 		 * @return void
 		 */
 		Blueprint::macro('belongsTo', function (
-			string $Class,
+			string $class,
 			?string $foreignKey = null,
 			?string $ownerKey = null
 		): ForeignIdColumnDefinition {
@@ -36,7 +36,7 @@ class ExtensionsProvider extends ServiceProvider
 
 			// First we need to figure out some stuff about the destination
 			/** @var Model $instance */
-			$instance = new $Class();
+			$instance = new $class();
 			$tableName = $instance->getTable();
 			$ownerKey = $ownerKey ?? $instance->getKeyName();
 			$foreignKey = $foreignKey ?? $instance->getForeignKey();

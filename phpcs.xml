@@ -141,6 +141,121 @@
 		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport" />
 	</rule>
 
+	<rule ref="Squiz">
+		<!-- If it doesn't exceed line max, we prefer multiple arguments on the same line -->
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+
+		<!-- If it doesn't exceed line max, we prefer multiple array values on the same line -->
+		<exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed" />
+
+		<!-- We don't want to align multiline 'foo' => 'bar' -->
+		<exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned" />
+
+		<!-- Allow @property (or any others) in class comment. ThatsThePoint.jpg -->
+		<exclude name="Squiz.Commenting.ClassComment.TagNotAllowed" />
+
+		<!-- I'm not a fan of trailing commas -->
+		<exclude name="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast" />
+		<exclude name="Squiz.Arrays.ArrayDeclaration.NoComma" />
+
+		<!-- We want to do single line block comments if we want to annotate a function param -->
+		<exclude name="Squiz.Commenting.BlockComment.SingleLine" />
+
+		<!-- It's requiring some weird indentation on block comments that doesn't work for all -->
+		<exclude name="Squiz.Commenting.BlockComment.FirstLineIndent" />
+		<exclude name="Squiz.Commenting.BlockComment.LastLineIndent" />
+		<exclude name="Squiz.Commenting.BlockComment.LineIndent" />
+		<exclude name="Squiz.Commenting.BlockComment.NoEmptyLineAfter" />
+
+		<!-- We want to be able to do single line phpdoc typehints -->
+		<exclude name="Squiz.Commenting.BlockComment.WrongStart" />
+		<exclude name="Squiz.Commenting.BlockComment.WrongEnd" />
+		<exclude name="Squiz.Commenting.InlineComment.DocBlock" />
+
+		<!-- We don't need every Inline comment (//) to end exactly in a sentence -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+
+		<!-- Gross. We don't want //end functionName() -->
+		<exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing" />
+
+		<!-- Again, we don't want to enforce phpdoc -->
+		<exclude name="Squiz.Commenting.ClassComment.Missing" />
+		<exclude name="Squiz.Commenting.FileComment.Missing" />
+		<exclude name="Squiz.Commenting.FunctionComment.Missing" />
+		<exclude name="Squiz.Commenting.VariableComment.Missing" />
+		<exclude name="Squiz.Commenting.FunctionComment.MissingReturn" />
+
+		<!-- And if we do phpdoc, we don't want to align params -->
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType" />
+
+		<!-- Neither do we want to require a comment as variable names should be self documenting -->
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+
+		<!-- PHPDoc doesn't need a period at the end of the throw explaination -->
+		<exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop" />
+
+		<!-- `//end for` is gross -->
+		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
+
+		<!-- Unfortunately, the incorrect var type check requires integer over int, boolean over bool -->
+		<exclude name="Squiz.Commenting.VariableComment.IncorrectVarType" />
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName" />
+
+		<!-- We want to be able to annotate // @codeCoverageIgnore -->
+		<exclude name="Squiz.Commenting.PostStatementComment.Found" />
+
+		<!-- We don't need ternary to only be on one line -->
+		<exclude name="Squiz.ControlStructures.InlineIfDeclaration.NotSingleLine" />
+		<exclude name="Squiz.WhiteSpace.OperatorSpacing.SpacingAfter" />
+
+		<!-- We want to enforce wrapping brackets around ternary -->
+		<exclude name="Squiz.ControlStructures.InlineIfDeclaration.NoBrackets" />
+
+		<!-- Leave break statements indented -->
+		<exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
+
+		<!-- We don't want .inc extension for class phps -->
+		<exclude name="Squiz.Files.FileExtension.ClassFound" />
+
+		<!-- We don't want to force () around operations -->
+		<exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets" />
+
+		<!-- Unfortunately, databases columns are snake instead of camel, so we have to ignore this -->
+		<exclude name="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps" />
+
+		<!-- We should be able to construct objects to pass into functions...  -->
+		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned" />
+
+		<!-- No, if it's a bool, we don't want to `=== true` -->
+		<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue" />
+
+		<!-- We like saving booleans -->
+		<exclude name="Squiz.PHP.DisallowBooleanStatement.Found" />
+		<exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedComparison" />
+
+		<!-- We like ternary -->
+		<exclude name="Squiz.PHP.DisallowInlineIf.Found" />
+
+		<!-- We like heredoc/nowdoc -->
+		<exclude name="Squiz.PHP.Heredoc.NotAllowed" />
+
+		<!-- We actually do want spaces around concatenation operator -->
+		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
+
+		<!-- We like string interpolation -->
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
+
+		<!-- We don't need a ton of blank lines around stuff -->
+		<exclude name="Squiz.ControlStructures.SwitchDeclaration.SpacingAfterBreak" />
+		<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose" />
+		<exclude name="Squiz.WhiteSpace.FunctionSpacing" />
+		<exclude name="Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect" />
+		<exclude name="Squiz.WhiteSpace.MemberVarSpacing.Incorrect" />
+
+		<!-- Weird spacing requirement for multiline object construction -->
+		<exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before" />
+	</rule>
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
@@ -176,8 +291,11 @@
 		</properties>
 	</rule>
 
-	<!-- Migrations use a custom naming scheme for their file, so don't require a namespace -->
+	<!-- Migrations use a custom naming scheme for their file, so don't require filename/namespace  -->
 	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+		<exclude-pattern>database/migrations/</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Classes.ClassFileName.NoMatch">
 		<exclude-pattern>database/migrations/</exclude-pattern>
 	</rule>
 </ruleset>

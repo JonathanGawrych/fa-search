@@ -45,17 +45,11 @@ return [
 			'auth_mode' => null,
 		],
 
-		'ses' => [
-			'transport' => 'ses',
-		],
+		'ses' => ['transport' => 'ses'],
 
-		'mailgun' => [
-			'transport' => 'mailgun',
-		],
+		'mailgun' => ['transport' => 'mailgun'],
 
-		'postmark' => [
-			'transport' => 'postmark',
-		],
+		'postmark' => ['transport' => 'postmark'],
 
 		'sendmail' => [
 			'transport' => 'sendmail',
@@ -67,9 +61,7 @@ return [
 			'channel' => env('MAIL_LOG_CHANNEL'),
 		],
 
-		'array' => [
-			'transport' => 'array',
-		],
+		'array' => ['transport' => 'array'],
 	],
 
 	/*

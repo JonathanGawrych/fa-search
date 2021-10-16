@@ -47,16 +47,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `user_id` BIGINT UNSIGNED NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `user_id` BIGINT UNSIGNED NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_user_id_foreign`
 			FOREIGN KEY (`user_id`)
 			REFERENCES `users` (`id`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
@@ -71,16 +75,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `user_id` INT NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `user_id` INT NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_user_id_foreign`
 			FOREIGN KEY (`user_id`)
 			REFERENCES `users` (`id`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
@@ -95,16 +103,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `user_id` SMALLINT NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `user_id` SMALLINT NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_user_id_foreign`
 			FOREIGN KEY (`user_id`)
 			REFERENCES `users` (`id`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
@@ -118,16 +130,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `user_id` VARCHAR(100) NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `user_id` VARCHAR(100) NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_user_id_foreign`
 			FOREIGN KEY (`user_id`)
 			REFERENCES `users` (`id`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
@@ -141,16 +157,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `other_user_id` BIGINT UNSIGNED NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `other_user_id` BIGINT UNSIGNED NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_other_user_id_foreign`
 			FOREIGN KEY (`other_user_id`)
 			REFERENCES `users` (`id`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
@@ -164,16 +184,20 @@ class ExtensionsProviderTest extends TestCase
 		[$column, $foreign] = $bluePrint->toSql(DB::connection(), new MySqlGrammar());
 
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
-			ADD `user_lower` BIGINT UNSIGNED NOT NULL",
+			<<<SQL
+			ALTER TABLE `table_name`
+			ADD `user_lower` BIGINT UNSIGNED NOT NULL
+			SQL,
 			$column
 		);
 		static::assertEqualsIgnoringCaseAndWhitespace(
-			"ALTER TABLE `table_name`
+			<<<SQL
+			ALTER TABLE `table_name`
 			ADD CONSTRAINT `table_name_user_lower_foreign`
 			FOREIGN KEY (`user_lower`)
 			REFERENCES `users` (`lower`)
-			ON DELETE CASCADE",
+			ON DELETE CASCADE
+			SQL,
 			$foreign
 		);
 	}
