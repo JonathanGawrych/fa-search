@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types=1); // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+// Technically this is "declaring a symbol" in the same file as a script with side effects,
+// but since it's the start, with a goal of timing, we'll add the ignore to the top
 define('LARAVEL_START', microtime(true));
 
 /*

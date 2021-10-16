@@ -121,6 +121,8 @@
 		<exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
 	</rule>
 
+	<rule ref="PSR1" />
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
@@ -156,7 +158,12 @@
 		</properties>
 	</rule>
 
-	<!-- <rule ref="PSR1"/>
+	<!-- Migrations use a custom naming scheme for their file, so don't require a namespace -->
+	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+		<exclude-pattern>database/migrations/</exclude-pattern>
+	</rule>
+
+	<!--
 	<rule ref="PSR2"/>
 	<rule ref="PSR12"/> -->
 </ruleset>
