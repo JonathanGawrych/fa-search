@@ -264,6 +264,8 @@
 		<exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps" />
 	</rule>
 
+	<rule ref="PHPCompatibility" />
+
 	<!-- And we want to configure some rules (but they can't be in the same rule blocks above) -->
 
 	<!-- We want tabs, not spaces -->
