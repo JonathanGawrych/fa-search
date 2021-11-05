@@ -109,4 +109,18 @@ return [
 
 	'password_timeout' => 10800,
 
+	'furaffinity' => [
+		'domain' => env('FURAFFINITY_DOMAIN'),
+		'user-agent' => env('FURAFFINITY_AUTH_USER_AGENT'),
+		'cookie' => [
+			'a' => env('FURAFFINITY_AUTH_COOKIE_A'),
+			'b' => env('FURAFFINITY_AUTH_COOKIE_B')
+		],
+		'cloudflare' => [
+			'clearance' => env('FURAFFINITY_CLOUDFLARE_CLEARANCE'),
+			'challenge_prog' => env('FURAFFINITY_CLOUDFLARE_CHALLENGE_PROG'),
+			'challenge_two' => env('FURAFFINITY_CLOUDFLARE_CHALLENGE_TWO')
+		]
+	]
+
 ];
