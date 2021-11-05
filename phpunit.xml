@@ -31,6 +31,7 @@
 			<file>./server.php</file>
 		</exclude>
 		<report>
+			<text outputFile="php://stdout" showOnlySummary="true" />
 			<html outputDirectory="coverage" />
 		</report>
 	</coverage>
