@@ -41,6 +41,11 @@
 		<!-- While evaluating a function every loop isn't the best, readability is king -->
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed" />
 
+		<!-- PHPCS doesn't understand when unused function parameters are required -->
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed" />
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed" />
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed" />
+
 		<!-- We want classes opening brace to be on the next line -->
 		<exclude name="Generic.Classes.OpeningBraceSameLine" />
 
@@ -99,6 +104,7 @@
 		<exclude name="PEAR.Commenting.FunctionComment.MissingParamComment" />
 
 		<!-- We don't want to align parameter comments -->
+		<exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName" />
 		<exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType" />
 
 		<!-- We prefer using `require` (errors) instead of `include` (warns) -->
@@ -186,13 +192,18 @@
 		<exclude name="Squiz.Commenting.FunctionComment.MissingReturn" />
 
 		<!-- And if we do phpdoc, we don't want to align params -->
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName" />
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType" />
 
 		<!-- Neither do we want to require a comment as variable names should be self documenting -->
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
 
-		<!-- PHPDoc doesn't need a period at the end of the throw explaination -->
+		<!-- PHPDoc doesn't need a period at the end -->
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
 		<exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop" />
+
+		<!-- Or a captial letter at the start -->
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital" />
 
 		<!-- `//end for` is gross -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
@@ -251,6 +262,9 @@
 		<exclude name="Squiz.WhiteSpace.FunctionSpacing" />
 		<exclude name="Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect" />
 		<exclude name="Squiz.WhiteSpace.MemberVarSpacing.Incorrect" />
+
+		<!-- Or we want a blank line around stuff -->
+		<exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose" />
 
 		<!-- Weird spacing requirement for multiline object construction -->
 		<exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before" />
