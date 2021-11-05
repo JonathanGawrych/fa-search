@@ -26,8 +26,8 @@ class MigrationsTest extends TestCase
 		$this->artisan('db:wipe');
 		$this->artisan('migrate:install');
 
-		/** @var Migrator $migrator **/
 		$migrator = $this->app->make('migrator');
+		assert($migrator instanceof Migrator);
 
 		// Get info about the migrations
 		$migrationFiles = $migrator->getMigrationFiles($this->app->databasePath('migrations'));
@@ -38,6 +38,7 @@ class MigrationsTest extends TestCase
 			// First get the current schema
 			/** @var Connection $connection */
 			$connection = DB::connection();
+
 			$before = $connection->getDoctrineSchemaManager()->createSchema();
 
 			// Then run the migration's up/down

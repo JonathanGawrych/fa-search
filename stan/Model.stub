@@ -1,0 +1,11 @@
+<?php
+
+namespace Illuminate\Database\Eloquent;
+
+abstract class Model
+{
+	/**
+	* @var array<string,string> $casts
+	*/
+	protected array $casts;
+}

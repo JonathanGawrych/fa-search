@@ -1,0 +1,11 @@
+<?php
+
+namespace Illuminate\Database\Schema;
+
+/**
+ * @method ForeignIdColumnDefinition belongsTo(class-string $model, string $foreignKey = null, string $ownerKey = null) add foreign column/constraint to the table
+ */
+class Blueprint
+{
+
+}

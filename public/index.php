@@ -47,11 +47,11 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
-/** @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap/app.php';
+assert($app instanceof Application);
 
-/** @var Kernel $kernel */
 $kernel = $app->make(Kernel::class);
+assert($kernel instanceof Kernel);
 
 $request = Request::capture();
 $response = tap($kernel->handle($request))->send();

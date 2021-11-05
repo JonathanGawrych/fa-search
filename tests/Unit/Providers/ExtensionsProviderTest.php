@@ -27,7 +27,7 @@ class ExtensionsProviderTest extends TestCase
 		int $scale = 0
 	): void
 	{
-		/** @var MockInterface $mockConnection **/
+		/** @var Connection&MockInterface $mockConnection **/
 		$mockConnection = Mockery::mock(Connection::class);
 		$mockConnection->shouldReceive('getDoctrineColumn->getType->getName')->andReturn($type);
 		$mockConnection->shouldReceive('getDoctrineColumn->getUnsigned')->andReturn($unsigned);

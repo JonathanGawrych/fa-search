@@ -22,27 +22,28 @@ class ExtensionsProvider extends ServiceProvider
 		 * Make it easier to make foreign keys, add a macro that'll do it for us
 		 * We'll use the same syntax that is used in generating relations
 		 *
-		 * @param string $class
+		 * @param class-string<Model> $class
 		 * @param string|null $foreignKey
 		 * @param string|null $ownerKey
-		 * @return void
+		 * @return ForeignIdColumnDefinition
 		 */
-		Blueprint::macro('belongsTo', function (
+		$belongsTo = function (
 			string $class,
 			?string $foreignKey = null,
 			?string $ownerKey = null
 		): ForeignIdColumnDefinition {
-			/** @var Blueprint $this **/
+			/** @var Blueprint $this */
 
 			// First we need to figure out some stuff about the destination
-			/** @var Model $instance */
 			$instance = new $class();
+			assert($instance instanceof Model);
+
 			$tableName = $instance->getTable();
 			$ownerKey = $ownerKey ?? $instance->getKeyName();
 			$foreignKey = $foreignKey ?? $instance->getForeignKey();
 
 			// Now we need to learn the datatype of the key
-			/** @var Connection $connection */
+			/** @var Connection $connection **/
 			$connection = DB::connection();
 			$columnDoctrine = $connection->getDoctrineColumn($tableName, $ownerKey);
 
@@ -70,6 +71,7 @@ class ExtensionsProvider extends ServiceProvider
 				->onDelete('cascade');
 
 			return $column;
-		});
+		};
+		Blueprint::macro('belongsTo', $belongsTo);
 	}
 }
