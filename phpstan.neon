@@ -22,5 +22,9 @@ parameters:
 		# https://github.com/phpstan/phpstan-strict-rules/issues/140
 		- '/Dynamic call to static method Illuminate\\Database\\.*/'
 
+		# And now phpstan 1.0 has #[Pure] function checks, but larastan still marks all macros as static
+		# We'll need to add an ignore for each one of our macros
+		- '/Call to static method Illuminate\\Database\\Schema\\Blueprint::belongsTo\(\) on a separate line has no effect./'
+
 		# While normally I would agree about short ternary, the xpath API really makes it needed
 		- '/Short ternary operator is not allowed./'

@@ -5,11 +5,13 @@ namespace App\Providers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Utils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Psr\Http\Message\RequestInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,20 +27,26 @@ class AppServiceProvider extends ServiceProvider
 		});
 
 		App::singleton('FuraffinityClient', function (): Client {
+			$domain = config('auth.furaffinity.domain');
+			assert(is_string($domain));
+
+			$handler = App::make('GuzzleHandler');
+			assert(is_callable($handler));
+
 			$cookieJar = CookieJar::fromArray([
 				'a' => config('auth.furaffinity.cookie.a'),
 				'b' => config('auth.furaffinity.cookie.b'),
 				'cf_clearance' => config('auth.furaffinity.cloudflare.clearance'),
 				'cf_chl_prog' => config('auth.furaffinity.cloudflare.challenge_prog'),
 				'cf_chl_2' => config('auth.furaffinity.cloudflare.challenge_two')
-			], config('auth.furaffinity.domain'));
+			], $domain);
 			return new Client([
 				'base_uri' => 'https://www.furaffinity.net/',
 				'headers' => [
 					'User-Agent' => config('auth.furaffinity.user-agent')
 				],
 				'cookies' => $cookieJar,
-				'handler' => HandlerStack::create(App::make('GuzzleHandler'))
+				'handler' => HandlerStack::create($handler)
 			]);
 		});
 	}

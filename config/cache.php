@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Str;
 
+$appName = env('APP_NAME', 'laravel');
+assert(is_string($appName));
+
 return [
 
 	/*
@@ -99,6 +102,6 @@ return [
 	|
 	*/
 
-	'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache'),
+	'prefix' => env('CACHE_PREFIX', Str::slug($appName, '_') . '_cache'),
 
 ];
