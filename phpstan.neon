@@ -28,3 +28,6 @@ parameters:
 
 		# While normally I would agree about short ternary, the xpath API really makes it needed
 		- '/Short ternary operator is not allowed./'
+
+	# Enable larastan checking model properties
+	checkModelProperties: true

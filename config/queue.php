@@ -88,4 +88,12 @@ return [
 		'table' => 'failed_jobs',
 	],
 
+	'precisionTiming' => [
+		'queues' => [
+			'profile' => [
+				'limit' => 10,
+				'duration' => 60000
+			]
+		]
+	]
 ];

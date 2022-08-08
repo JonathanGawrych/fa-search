@@ -7,7 +7,7 @@ insert_final_newline = true
 indent_style = tab
 trim_trailing_whitespace = true
 
-[*.md]
+[*.{md,blade.php}]
 trim_trailing_whitespace = false
 
 # Because yml is dumb and requires the objectively worse tab style
